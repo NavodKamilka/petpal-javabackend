@@ -26,6 +26,9 @@ public class commonMethodServiceImpl implements commonMethodService {
     private appointmentRepository appointmentRepository;
 
     @Autowired
+    private appointmentDuplicateRepository appointmentDuplicateRepository;
+
+    @Autowired
     private doctorRepository doctorRepository;
 
     @Autowired
@@ -98,11 +101,12 @@ public class commonMethodServiceImpl implements commonMethodService {
     }
 
     @Override
-    public List<Appointment> getAppointmentsToday(Long id, String date) {
+    public List<Appointment> getAppointmentsToday(Long id) {
         List<Appointment> appointments = appointmentRepository.findAll();
         List<Appointment> appointments1 = new ArrayList<>();
+
         for(Appointment appointment : appointments){
-            if(appointment.getDate().equals(date) && appointment.getDoctor().equals(id)){
+            if(appointment.getDoctorId().equals(id)){
                 appointments1.add(appointment);
             }
         }
@@ -155,5 +159,41 @@ public class commonMethodServiceImpl implements commonMethodService {
     @Override
     public List<notices> getNotices() {
         return noticeRepository.findAll();
+    }
+
+    @Override
+    public List<AppointmentDuplicate> getPresent() {
+        List<AppointmentDuplicate> appointmentDuplicates = appointmentDuplicateRepository.findAll();
+        List<AppointmentDuplicate> appointmentDuplicates1 = new ArrayList<>();
+        for(AppointmentDuplicate appointmentDuplicate : appointmentDuplicates){
+            if(appointmentDuplicate.getStatus()==0){
+                appointmentDuplicates1.add(appointmentDuplicate);
+            }
+        }
+        return appointmentDuplicates1;
+    }
+
+    @Override
+    public List<AppointmentDuplicate> getFuture() {
+        List<AppointmentDuplicate> appointmentDuplicates = appointmentDuplicateRepository.findAll();
+        List<AppointmentDuplicate> appointmentDuplicates1 = new ArrayList<>();
+        for(AppointmentDuplicate appointmentDuplicate : appointmentDuplicates){
+            if(appointmentDuplicate.getStatus()==1){
+                appointmentDuplicates1.add(appointmentDuplicate);
+            }
+        }
+        return appointmentDuplicates1;
+    }
+
+    @Override
+    public List<AppointmentDuplicate> getPast() {
+        List<AppointmentDuplicate> appointmentDuplicates = appointmentDuplicateRepository.findAll();
+        List<AppointmentDuplicate> appointmentDuplicates1 = new ArrayList<>();
+        for(AppointmentDuplicate appointmentDuplicate : appointmentDuplicates){
+            if(appointmentDuplicate.getStatus()==-1){
+                appointmentDuplicates1.add(appointmentDuplicate);
+            }
+        }
+        return appointmentDuplicates1;
     }
 }

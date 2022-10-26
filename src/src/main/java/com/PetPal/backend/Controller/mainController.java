@@ -55,9 +55,9 @@ public class mainController {
         return commonMethodService.getNotices();
     }
 
-    @GetMapping("/getAppointments/{date}")
-    private List<Appointment> getAppointment(@PathVariable String date){
-        return commonMethodService.getAppointmentsToday(1L,date);
+    @GetMapping("/getAppointmentsToday")
+    private List<Appointment> getAppointment(){
+        return commonMethodService.getAppointmentsToday(1L);
     }
 
     @GetMapping("/getAppointmentsByDoc/{id}")
@@ -73,5 +73,20 @@ public class mainController {
     @GetMapping("/getDiscussions")
     private List<discussionResBody> getDiscussions() {
         return commonMethodService.getAllDiscussions();
+    }
+
+    @GetMapping("/getPresent")
+    private List<AppointmentDuplicate> getPresent() {
+        return commonMethodService.getPresent();
+    }
+
+    @GetMapping("/getPast")
+    private List<AppointmentDuplicate> getPast() {
+        return commonMethodService.getPast();
+    }
+
+    @GetMapping("/getFuture")
+    private List<AppointmentDuplicate> getFuture() {
+        return commonMethodService.getFuture();
     }
 }

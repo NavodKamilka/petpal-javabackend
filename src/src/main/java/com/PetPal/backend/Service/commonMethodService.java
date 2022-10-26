@@ -17,7 +17,7 @@ public interface commonMethodService {
 
     String addNotice(notices notice);
 
-    List<Appointment> getAppointmentsToday(Long id , String date);
+    List<Appointment> getAppointmentsToday(Long id );
 
     List<Appointment> getAppointmentsByOwner(String name);
 
@@ -30,5 +30,11 @@ public interface commonMethodService {
     List<Appointment> getByDocId(Long id);
 
     List<notices> getNotices();
+
+    List<AppointmentDuplicate> getPresent();
+
+    List<AppointmentDuplicate> getFuture();
+
+    List<AppointmentDuplicate> getPast();
 
 }
